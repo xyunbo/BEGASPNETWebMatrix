@@ -1,0 +1,30 @@
+﻿@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <link href="@Href("~/Content/StyleSheet.css")" rel="Stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="head">This is where head content goes</div>
+        </div>
+        <div id="navstrip">
+            <div id="nav">This is where the navigation goes</div>
+        </div>
+        <div id="wrapper">
+            <div id="left">
+                <div id="”search”">This is where left content goes</div>
+            </div>
+            <div id="content">
+                @RenderBody()
+            </div>
+            <div id="footer">
+                <p>This is where the footer goes</p>
+            </div>
+        </div>
+    </body>
+</html>
