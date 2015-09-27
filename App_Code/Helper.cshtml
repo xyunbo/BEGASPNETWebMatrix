@@ -1,0 +1,12 @@
+﻿@helper RegisterJs(string folder, string[] scriptLibs)
+{
+foreach (var script in scriptLibs)
+{
+        <script src="@folder/@script" type="text/javascript"></script>
+    }
+}
+@helper RegisterStyles(string folder, string[] styleSheets)
+{foreach (var sheet in styleSheets) {
+        <link href="@folder/@sheet" rel="stylesheet" type="text/css" />
+    }
+}

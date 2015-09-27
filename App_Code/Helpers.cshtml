@@ -1,0 +1,15 @@
+﻿@helper Selected(string option, string value){
+    if(HttpContext.Current.Request[option] != null){
+             if(HttpContext.Current.Request[option].Contains(value)){
+                 <text>selected=\"selected\"</text>
+             } 
+         }
+     }
+
+    @helper Checked(string option, string value){
+        if(HttpContext.Current.Request[option] != null){
+            if(HttpContext.Current.Request[option].Contains(value)){
+                <text>checked=\"checked\"</text>
+             }
+         }    
+ }

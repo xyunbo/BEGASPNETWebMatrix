@@ -1,0 +1,10 @@
+﻿@{
+    Page.Title = "Start page";
+}
+<h1>Testing _PageStart</h1>
+@foreach(var color in Page.Colors){
+    <p style="background-color:@color">
+        This paragraph is @color
+    </p>
+}
+<p><a href="/Level1/">Click</a> to visit Level 1</p>

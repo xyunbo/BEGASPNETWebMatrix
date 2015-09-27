@@ -1,0 +1,20 @@
+﻿@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        @Helper.RegisterJs("/Script", new[] {"myScript.js"})
+        @Helper.RegisterStyles("/Content", new[] {"Main.css"})
+    </head>
+    <body>
+mike@wrox.com is a valid email address:
+        @Functions.IsValidEmail("mike@wrox.com")
+        <br />
+www.wrox.com is a valid email address:
+        @Functions.IsValidEmail("www.wrox.com")
+        <br />
+    </body>
+</html>

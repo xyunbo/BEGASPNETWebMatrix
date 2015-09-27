@@ -1,0 +1,26 @@
+﻿@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <form action="" method="post">
+            @if(IsPost){
+                if(@Request["yourname"]==""){
+                    <div>Please enter your name</div>
+                }else{
+                    <div>You entered @Request["yourname"] </div>
+                }
+                
+            }else{
+                <div>Please enter your name</div>
+            }
+            <input type="text" name="yourname" /><br />
+            <input type="submit" value="Click Me" />
+        </form>
+    </body>
+</html>

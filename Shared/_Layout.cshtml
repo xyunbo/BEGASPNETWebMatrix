@@ -1,29 +1,33 @@
-﻿@{
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title></title>
-        <link href="@Href("~/Content/StyleSheet.css")" rel="Stylesheet" type="text/css" />
+        <title>@Page.Title</title>
+        <link href="@Href("~/Content/StyleSheet.css")" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div id="header">
-            <div id="head">This is where head content goes</div>
+            @RenderPage("~/Shared/_Header.cshtml")
         </div>
         <div id="navstrip">
-            <div id="nav">This is where the navigation goes</div>
+            @RenderPage("~/Shared/_Navigation.cshtml")
         </div>
         <div id="wrapper">
             <div id="left">
-                <div id="”search”">This is where left content goes</div>
+                <div id="search">This is where left content goes</div>
             </div>
             <div id="content">
                 @RenderBody()
             </div>
             <div id="footer">
-                <p>This is where the footer goes</p>
+                @*
+                @if(IsSectionDefined("footer")){
+                    @RenderSection("footer")
+                } else {
+                    <p>This is the default footer content</p>
+                }
+                *@
+                @RenderPage("~/Shared/_Footer.cshtml", new {Year = DateTime.Now.Year})
             </div>
         </div>
     </body>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+    @if(IsPost){
+            var errors = String.Empty;
+            if(Request["headline"].IsEmpty()){
+                errors += "<li>You must provide a headline</li>";
+			}
+            if(Request["introduction"].IsEmpty()){
+                errors += "<li>You must provide an introduction</li>";
+			}
+            if(Request["body"].IsEmpty()){
+                errors += "<li>You must provide story body</li>";
+			}
+            if(Request["section"].IsEmpty()){
+                errors += "<li>You must choose a section</li>";
+			}
+            if(Request["comments"].IsEmpty()){
+                errors += "<li>You must specify whether comments are allowed</li>";
+			}
+            if(Request["author"].IsEmpty()){
+                errors += "<li>You must select at least one author</li>";
+			}
+            if(errors.IsEmpty()){
+                <div>You submitted:</div>
+                <div>Headline: @Request["headline"]</div>
+                <div>Introduction: @Request["introduction"]</div>
+                <div>Story Body: @Request["body"].Replace("\n","<br />")</div>
+                <div>Section: @Request["section"]</div>
+                <div>Allow Comments: @Request["comments"]</div>
+                <div>Author(s): @Request["author"]</div>
+            }else{
+                <h3>The following errors need correcting:</h3>
+                <ul>
+                    @Html.Raw(errors)
+                </ul>
+            }
+		}
+
+    <h3>Add your story</h3>
+    <form action="" method="post">        
+        <div>Headline</div>
+        <input type="text" name="headline" value="@Request["headline"]" />
+        <div>Introduction</div>
+        <textarea name="introduction">@Request["introduction"]</textarea>
+        <div>Story body</div>
+        <textarea name="body">@Request["body"]</textarea>
+        <div>Choose Section</div>
+        <select name="section">
+            <option value="">Pick one</option>
+            <option @Helpers.Selected("section","General News")>General News</option>
+            <option @Helpers.Selected("section","Business")>Business</option>
+            <option @Helpers.Selected("section","Technology")>Technology</option>
+            <option @Helpers.Selected("section","International")>International</option>
+            <option @Helpers.Selected("section","Politics")>Politics</option>
+            <option @Helpers.Selected("section","Sport")>Sport</option>
+            <option @Helpers.Selected("section","Education")>Education</option>
+            <option @Helpers.Selected("section","Health")>Health</option>
+            <option @Helpers.Selected("section","Travel")>Travel</option>
+        </select>
+        <div>Allow Comments?</div>
+        <input type="radio" name="comments" value="yes" @Helpers.Checked("comments","yes") /> Yes
+        <input type="radio" name="comments" value="no" @Helpers.Checked("comments","no") /> No
+        <div>Authors</div>
+        <input type="checkbox" name="author" value="James" @Helpers.Checked("author","James") />James<br />
+        <input type="checkbox" name="author" value="Karen" @Helpers.Checked("author","Karen") />Karen<br />
+        <input type="checkbox" name="author" value="Stephanie" @Helpers.Checked("author","Stephanie") />Stephanie<br />
+        <input type="checkbox" name="author" value="Alfie" @Helpers.Checked("author","Alfie") />Alfie<br />
+        <input type="checkbox" name="author" value="Molly" @Helpers.Checked("author","Molly") />Molly<br />
+        <input type="submit" value="Add Story" />
+    </form>
+    </body>
+</html>

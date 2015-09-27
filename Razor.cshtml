@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+    var people = new List<string>(){"John", "Simon", "Anna"};
+    var myInt = 3;
+
+    Page.Title="Razor";
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@Page.Title</title>
+    </head>
+    <body>
+    <p>There are @myInt people</p>  
+    <ul>
+    @foreach(var person in people){
+        <li>@person</li>
+    }
+    </ul>
+
+    </body>
+</html>

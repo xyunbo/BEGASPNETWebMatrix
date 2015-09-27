@@ -1,0 +1,14 @@
+﻿@{
+    Page.Title = "Level 1 Start page";
+}
+<h1>Testing _PageStart From Level 1</h1>
+@{
+    var i = 0;
+    foreach(var color in Page.Colors){
+        <p style="background-color:@color; font-family:@Page.Fonts[i]">
+            This paragraph is @color
+        </p>
+        i++;
+        }
+}
+<p><a href="/Level1/Page">Click</a> to visit Level 1</p>
