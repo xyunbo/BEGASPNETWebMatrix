@@ -1,12 +1,120 @@
 ﻿@{
-    Layout = "~/Shared/_Layout.cshtml";
+
+  
+
     Page.Title = "Post Your Advertisement";
+    var result = "";
+    if(IsPost){
+        if(Request["title"].IsEmpty()){
+            ModelState.AddError("title", "Please provide a title");
+        }
+        if(Request["title"].Length > 200){
+            ModelState.AddError("title", "Your title cannot exceed 200 characters");
+        }
+        if(Request["description"].IsEmpty()){
+            ModelState.AddError("description", "You must provide a description");
+        }
+        if(Request["duration"].IsEmpty()){
+            ModelState.AddError("duration", "Please choose a duration");
+        }
+        if(Request["price"].IsEmpty()){
+            ModelState.AddError("price", "Please provide a price");
+        }
+        if(!Request["price"].IsDecimal () && !Request["Price"].IsEmpty()){
+            ModelState.AddError("price", "Please provide a valid number for the price");
+        }
+        if(Request["condition"].IsEmpty()){
+            ModelState.AddError("condition", "Please state the condition of your item");
+        }
+        if(Request["email"].IsEmpty()){
+            ModelState.AddError("email", "Please provide your email address");
+        }
+        if(!Request["email"].IsEmpty() && !Functions.IsValidEmail(Request["Email"])){
+            ModelState.AddError("email", "Please provide a valid email address");
+        }
+        if(!ModelState.IsValid){
+            ModelState.AddFormError(@"Please fix the errors below 
+                                    before submitting the form");
+        }
+        else{
+            /*
+            var description = Request.Unvalidated("Description");
+            if(description.IsEmpty()){
+                errors += "<li>Please provide a description</li>";
+             }*/
+            var message = "<p>Details of your item for sale:</p>";
+            message += "Title: " + Request["title"] + "<br />";
+            message += "Description: " + Request["description"] + "<br />";
+            message += "Duration: " + Request["duration"] + " days<br />";
+            message += "Price: " + String.Format("{0:c}", Request["price"].AsFloat()) + "<br />";
+            message += "Condition: " + Request["condition"];
+            WebMail.Send(
+                    to: Request["email"],
+                    subject: "Advertisement confirmation",
+                    body: message,
+                    isBodyHtml: true
+                    );
+            result = "Your advertisement details have been sent to you by email";
+        }
+    }
 }
-
-<h2>Post Your Advertisement</h2>
-@*
-@section footer{
-    This is a footer for the Sell page
-}
-*@
-
+<div>@result</div>
+<form id="post-advert" action="@Href("~/Sell")" method="post">
+    <fieldset>
+        <legend>Post Your Advertisement</legend>
+        @Html.ValidationSummary(true)
+        <div>
+            <label for="title">Title*</label>
+        </div>
+        <div>
+            <input type="text" id="title" name="title" value="@Request["title"]" />
+            @Html.ValidationMessage("title")
+        </div>
+        <div>
+            <label for="description">Description*</label>
+        </div>
+        <div>
+            <textarea id="description" name="description">@Request["description"]</textarea>
+            @Html.ValidationMessage("description")
+        </div>
+        <div>
+            <label for="duration">Duration*</label>
+        </div>
+        <div>
+            <select id="duration" name="duration">
+                <option value="">--Choose one--</option>
+                <option value="1" @Helpers.Selected("duration","1")>1 Day</option>
+                <option value="3" @Helpers.Selected("duration","3")>3 Days</option>
+                <option value="7" @Helpers.Selected("duration","7")>7 Days</option>
+                <option value="14" @Helpers.Selected("duration","14")>14 Days</option>
+            </select>
+            @Html.ValidationMessage("duration")
+        </div>
+        <div>
+            <label for="price">Price*</label>
+        </div>
+        <div>
+            <input type="text" id="price" name="price" value="@Request["price"]" />
+            @Html.ValidationMessage("price")
+        </div>
+        <div>
+            <label for="condition">Condition*</label>
+        </div>
+        <div>
+            <input type="radio" id="condition" name="condition" value="Fair" @Helpers.Checked("condition","Fair") />Fair
+            <input type="radio" id="condition" name="condition" value="Good" @Helpers.Checked("condition","Good") />Good
+            <input type="radio" id="condition" name="condition" value="As New" @Helpers.Checked("condition","As New") />As New
+            @Html.ValidationMessage("condition")
+        </div>
+        <div>
+            <label for="email">Your Email Address*</label>
+        </div>
+        <div>
+            <input type="text" id="email" name="email" value="@Request["email"]" />
+            @Html.ValidationMessage("email")
+        </div>
+        <div>
+            <input type="submit" name="Submit" value="Post" />
+        </div>
+    </fieldset>
+</form>

@@ -1,0 +1,24 @@
+﻿@{
+    var message = "Upload your file:";
+    if(IsPost){
+        var file = Request.Files["fileUpload"];
+        var fileName = Path.GetFileName(file.FileName);
+        message = "You uploaded " + fileName;
+        var filePath = Server.MapPath("~/Uploads/");
+        file.SaveAs(filePath + fileName);
+        message += ". It was saved to " + filePath;
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        @message
+        @FileUpload.GetHtml(allowMoreFilesToBeAdded : false)
+    </body>
+</html>

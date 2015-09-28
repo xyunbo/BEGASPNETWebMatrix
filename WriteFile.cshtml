@@ -1,0 +1,23 @@
+﻿@{
+    var location = Server.MapPath("/Files");
+    var filename =  "form2.txt";
+    var path = Path.Combine(location, filename);
+    if(IsPost){
+        File.WriteAllText(path, Request["name"] + Environment.NewLine);        
+    }
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <form method="post" action="">
+            <div>Enter a name:</div>
+            <div><input type="text" name="name" /></div>
+            <div><input type="submit" value="Submit" /></div>
+        </form>
+    </body>
+</html>

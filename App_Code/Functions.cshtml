@@ -1,4 +1,4 @@
-﻿@using System.Text.RegularExpressions;
+﻿@*using System.Text.RegularExpressions;
 @functions {
 public static bool IsValidEmail(string s)
 {
@@ -6,3 +6,13 @@ string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 return Regex.IsMatch(s, pattern);
 }
 }
+*@
+
+@using System.Text.RegularExpressions;
+@functions{
+    public static bool IsValidEmail(string s){
+        string pattern = @"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+        return Regex.IsMatch(s, pattern);
+    }
+}
+

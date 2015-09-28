@@ -1,0 +1,53 @@
+﻿@{
+    var folderName = "";
+    var path = "";
+    var message = "Choose an image to upload:";
+    
+    if(Request.Cookies["folder"] != null){
+        folderName = Request.Cookies["folder"].Value;
+    }
+    else{
+        folderName = Guid.NewGuid().ToString();
+    }
+    
+    path = Path.Combine(Server.MapPath("/Uploads/"), folderName);
+    
+    if(!Directory.Exists(path)){
+        Directory.CreateDirectory(path);
+        Response.Cookies["folder"].Value = folderName;
+        Response.Cookies["folder"].Expires = DateTime.Now.AddYears(1);
+    }
+    
+    if(Request.Files.Count > 0){
+        WebImage image = WebImage.GetImageFromRequest();
+        if(image != null){
+            var imageFileName = Path.GetFileName(image.FileName);
+            var imageGuid = Guid.NewGuid().ToString();
+            var fileName = imageGuid + "_" + imageFileName;
+            var thumbFileName = imageGuid + "_thumb_" + imageFileName;
+            var location = Path.Combine(path, fileName);
+            image.Resize(600, 600, preventEnlarge: true);
+            image.Save(location, "jpg");
+            image.Resize(200, 200, preventEnlarge: true);
+            location = Path.Combine(path, thumbFileName);
+            var watermark = DateTime.Now.ToShortDateString();
+            image.AddTextWatermark(watermark, fontColor: "White", fontSize: 8);
+            image.Save(location, "jpg");
+        }else{
+            message = "You may only upload image files: .jpg, .gif, .png, .bmp, .tif";
+        }
+    }
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Picture Gallery</title>
+    </head>
+    <body>
+        <h1>Upload Images</h1>
+            <div>@message</div>
+            @FileUpload.GetHtml(allowMoreFilesToBeAdded:false)
+    </body>
+</html>

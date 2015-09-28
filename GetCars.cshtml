@@ -1,0 +1,13 @@
+﻿@{
+    var cars = new List<Car>{
+        new Car{Model="Focus", YearRegistered=2003, NumberOfDoors=5, Color="Red"},
+        new Car{Model="Viper", YearRegistered=2009, NumberOfDoors=2, Color="Blue" },
+        new Car{Model="Prius", YearRegistered=2010, NumberOfDoors=4, Color="Silver" },
+        new Car{Model="CR-V", YearRegistered=2006, NumberOfDoors=5, Color="White" },
+        new Car{Model="Zephyr", YearRegistered=2008, NumberOfDoors=4, Color="Black" },
+        new Car{Model="Vector", YearRegistered=2002, NumberOfDoors=4, Color="Green" },
+        new Car{Model="A5", YearRegistered=2009, NumberOfDoors=2, Color="Silver" }
+    };
+    Response.ContentType = "application/json";
+    Json.Write(cars, Response.Output);
+}

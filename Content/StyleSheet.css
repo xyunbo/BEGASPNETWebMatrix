@@ -131,50 +131,104 @@ SITE STRUCTURE
 */
 
 
+/*
+-------------------------------------------------
+HTML ELEMENTS
+-------------------------------------------------
+*/
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family : Verdana, Helvetica, sans-serif;
     font-size: 80%;
+    color: #5f5f5f;
     padding: 0;
     margin: 0;
+    background-color: white;
 }
 
-h1 {
-    color: #0093c0;
+/*
+-------------------------------------------------
+SITE STRUCTURE
+-------------------------------------------------
+*/
+
+#header, #navstrip{
+    width: 100%;
+    background-color: #4b4b4b;
 }
 
-#wrapper {
-    background-color: #c1dfde;
-    padding: 10px;
-    width: 800px;
+#header{
+    min-height: 70px;
+    color: white;
+}
+#navstrip{
+    border-bottom: 2px solid #c3c4c8;
+}
+#head, #nav, #wrapper{
+    width: 900px;
     margin: auto;
-    min-height: 600px;
+}
+#head{
+    font: normal 4em Tahoma;
+    line-height: 2em;
+}
+#wrapper{
+    background-color: white;
+    border: 2px solid #717171;
+}
+#nav{
+    background-color: #717171;
+    line-height: 25px;
+    color: white;
 }
 
-#electronics, #automation {
+#nav a, #nav a:hover, #nav a:visited{
+    color: white;
+    font-size: 1.0em;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 5px 15px;
+}
+#left, #content{
+    float: left;
     min-height: 400px;
 }
 
-#electronics {
-    background-color: #8ec1da;
-    width: 650px;
-    float: left;
+#left{
+    width: 180px;
+    background-color: #e8e8e8;
 }
 
-#automation {
-    background-color: #ffe8d3;
+#content{
+    width: 700px;
+    background-color: white;
+    padding: 10px
 }
 
-#electronicsnav {
-    background-color: #fff;
-    min-height: 400px;
-    width: 150px;
-    float: left;
+#footer{
+    clear: both;
+    font-size: 90%;
+    color: #999;
+    text-align: center;
 }
 
-#automationnav {
-    background-color: #dedede;
+#nav, #login {
+    border-bottom: 1px solid black;
+    padding-bottom: 4px;
+}
+/*
+-------------------------------------------------
+FORM
+-------------------------------------------------
+*/
+legend{
+    color: #84a24a;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Arial Narrow";
 }
 
-#automation h3 {
-    color: #997d63;
+.field-validation-error, .validation-summary-errors{
+    color: red;
 }
+

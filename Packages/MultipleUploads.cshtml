@@ -1,0 +1,29 @@
+﻿@{
+    var message = "Upload your file:";
+    if(Request.Files.Count > 0){
+        message = "You uploaded the following files: <ul>";
+        for(var i = 0; i < Request.Files.Count; i++){
+            var file = Request.Files[i];
+            if(file.ContentLength > 0){
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Server.MapPath("~/Uploads/");
+                file.SaveAs(filePath + fileName);
+                message += "<li>" + fileName + "</li>";
+            }
+        }
+        message += "</ul>";
+    }
+    
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        @Html.Raw(message)
+        @FileUpload.GetHtml()
+    </body>
+</html>

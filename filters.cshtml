@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>jQuery Filters Demo</title>
+        <script src="@Href("~/Scripts/jquery-1.6.2.min.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('#font').click(function(){
+                     $('*').css({'font-family': 'Arial','font-size': '13px'});    
+                });
+                $('#odd').click(function(){
+                    $('tr:odd').css('background-color', '#ccffbf');
+                });
+                $('#even').click(function(){
+                    $('tr:even').css('background-color', '#99ff80');
+                });
+                $('#contains').click(function(){
+                    $('td:contains(2nd col)').css('background-color', '#ffbfdc');
+                });
+                $('#toggle').click(function(){
+                    $('a').toggleClass('links');
+                });
+                $('#starts').click(function(){
+                    $('a[title^=Visit]').css('color', 'red');
+                });
+                $('#ends').click(function(){
+                    $('a[href$=uk]').css('color', 'blue');
+                });
+                $('#anywhere').click(function(){
+                    $('a[title*=Face]').css('color', 'green');
+                });
+            });
+        </script>
+        <style type="text/css">
+            .links{
+                color:#b36b00;
+                text-decoration:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <input type="button" id="font" value="Font" /> 
+            <input type="button" id="odd" value="Odd" /> 
+            <input type="button" id="even" value="Even" /> 
+            <input type="button" id="contains" value="Contains" />
+        </div>
+        <table width="300">
+            <thead>Sample table</thead>
+            <tr><td>1st col cell 1</td><td>2nd col cell 1</td></tr>
+            <tr><td>1st col cell 2</td><td>2nd col cell 2</td></tr>
+            <tr><td>1st col cell 3</td><td>2nd col cell 3</td></tr>
+            <tr><td>1st col cell 4</td><td>2nd col cell 4</td></tr>
+        </table>
+        <div>
+            <input type="button" id="toggle" value="Toggle" />
+            <input type="button" id="starts" value="Start" /> 
+            <input type="button" id="ends" value="End" /> 
+            <input type="button" id="anywhere" value="Anywhere" />            
+        </div>
+        <div>
+            <a href="http://www.google.com" title="Visit Google">Click to visit Google</a><br />
+            <a href="http://www.facebook.com" title="Visit Facebook">Click to visit Facebook</a><br />
+            <a href="http://www.wrox.com" title="Visit Wrox">Click to visit Wrox</a><br />
+            <a href="http://www.bbc.co.uk" title="Visit The BBC">Click to visit the BBC's site</a><br />
+        </div>
+    </body>
+</html>

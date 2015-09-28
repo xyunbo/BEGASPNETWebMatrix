@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>List Cars</title>
+        <script src="@Href("~/Scripts/jquery-1.6.2.min.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function(){
+                $(':input[type=button]').click(function(){
+                    $.getJSON("GetCars/", function(cars){
+                        $.each(cars, function(i, car) {
+                            $('#list').append('<p>Model: ' + car.Model + '<br />'
+                                    + 'Year: ' + car.YearRegistered + '<br />'
+                                    + 'Doors: ' + car.NumberOfDoors + '<br />'
+                                    + 'Color: ' + car.Color + '</p>'
+                            );
+                        });
+                    }); 
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>List Cars</h1>
+        <div>Current time: @DateTime.Now</div>
+        <div><input type="button" value="Get Cars" /></div>
+        <div id="list"></div>
+    </body>
+</html>

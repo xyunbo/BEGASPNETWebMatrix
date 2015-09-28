@@ -1,0 +1,36 @@
+﻿@{
+    var location = Server.MapPath("/Folders/");
+    var foldername =  Guid.NewGuid().ToString();
+    var path = Path.Combine(location, foldername);
+    if(IsPost){
+        if(!Request["name"].IsEmpty()){
+            Directory.CreateDirectory(path);
+            var file = Path.Combine(path, Request["name"] + ".txt");
+            var text = Request["name"] + ": " + DateTime.Now;
+            File.AppendAllText(file, text); 
+        }
+    }
+    var folders = new DirectoryInfo(location);
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <form method="post" action="">
+            <div>Enter a name:</div>
+            <div><input type="text" name="name" /></div>
+            <div><input type="submit" value="Submit" /></div>
+        </form>
+        @foreach(var folder in folders.GetDirectories()){
+            @:Folder: <strong>@folder.Name</strong><br />
+            foreach(var file in folder.GetFiles()){
+                @:File: <a href="/Folders/@folder.Name/@file.Name"><em>@file.Name</em></a><br />
+            }
+        }
+
+    </body>
+</html>

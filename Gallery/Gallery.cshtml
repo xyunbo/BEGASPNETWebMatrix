@@ -1,0 +1,53 @@
+﻿@{
+    var folderName = "";
+    var path = "";
+    var files = new List<string>();
+    if(Request.Cookies["folder"] != null){
+        folderName = Request.Cookies["folder"].Value;
+        path = Path.Combine(Server.MapPath("/Uploads/"), folderName);
+        foreach(var file in  Directory.GetFiles(path)){
+            if(Path.GetFileName(file).Contains("_thumb_")){
+                files.Add(Path.GetFileName(file));
+            }
+        }
+    }
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gallery</title>
+        
+        <link rel="stylesheet" href="@Href("~/Content/tinycarousel.css")" type="text/css" />
+        <link rel="stylesheet" href="@Href("~/Content/jquery.fancybox-1.3.4.css")" type="text/css" />
+        <script type="text/javascript" src="@Href("~/Scripts/jquery-1.6.2.min.js")"></script>
+        <script type="text/javascript" src="@Href("~/Scripts/jquery.tinycarousel.min.js")"></script>
+        <script type="text/javascript" src="@Href("~/Scripts/jquery.fancybox-1.3.4.pack.js")"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#slider-code').tinycarousel();
+                $('.thumb').fancybox();
+            });
+        </script>	
+    </head>
+    <body>
+        <h3>Gallery</h3>
+        <div id="slider-code">
+            <a class="buttons prev" href="#">left</a>
+            <div class="viewport">
+                <ul class="overview">
+                    @foreach(var file in files){
+                        <li>
+                            <a class="thumb" href="Uploads/@folderName/@file.Replace("_thumb", "")">
+                                <img src="Uploads/@folderName/@file" alt=""/>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <a class="buttons next" href="#">right</a>
+        </div>
+    </body>
+</html>
+
